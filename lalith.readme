@@ -1,0 +1,8 @@
+BUILDING APK file
+  - keytool -genkey -v -keystore my-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+  - place the generated key file under "android/app"
+  - cd 'android'
+  - APK version:
+       ./gradlew assembleRelease
+    AAB version:
+        ./gradlew bundleRelease
