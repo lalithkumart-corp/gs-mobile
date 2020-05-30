@@ -3,6 +3,7 @@ import { Text, Button, View, FlatList, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import GsDatabase from '../../database/db';
 
 export default class Demo extends Component {
@@ -34,16 +35,16 @@ export default class Demo extends Component {
                     headerTintColor: '#fff',
                     headerTitleStyle: {
                     fontWeight: 'bold',
-                },
-                headerLeft: () => (
-                    <Button
-                        onPress={() => this.props.navigation.toggleDrawer()}
-                        title="Info"
-                        color="#fff"
-                    />
-                )
+                }
             }}>
-                <Stack.Screen name="DemoScreen" component={DemoScreen} options={{title: 'Demo Screen'}}/>
+                <Stack.Screen name="DemoScreen" component={DemoScreen} options={{title: 'Demo Screen', headerLeft: () => (
+                    <MaterialIcon.Button
+                        name = "format-list-bulleted"
+                        onPress={() => this.props.navigation.toggleDrawer()}
+                        style={{color: "white", backgroundColor: "#f4511e"}}
+                        >
+                    </MaterialIcon.Button>
+                )}}/>
             </Stack.Navigator>
         )
     }
@@ -105,7 +106,14 @@ class DemoScreen extends Component{
                     title="Go to Notifications screen"
                 />
 
-                <TextInput onChangeText={text => this.onUserNameChange(text)} value={this.state.userNameVal} style = {styles.input} placeholder="user name" autoFocus={true}/>
+                <TextInput 
+                    label="Name"
+                    mode="outlined"
+                    onChangeText={text => this.onUserNameChange(text)} 
+                    value={this.state.userNameVal} 
+                    style = {styles.input} 
+                    placeholder="user name" 
+                    autoFocus={true}/>
                 {/* <TextInput
                     label='UserName'
                     value={this.state.userNameVal}
@@ -132,9 +140,10 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
        margin: 15,
-       height: 40,
-       borderColor: '#7a42f4',
-       borderWidth: 1
+       height: 30,
+       width: 200,
+    //    borderColor: '#7a42f4',
+    //    borderWidth: 1
     },
     submitButton: {
        backgroundColor: '#7a42f4',

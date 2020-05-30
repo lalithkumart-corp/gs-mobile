@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, View } from 'react-native';
+import { Text, Button, View, TouchableHighlight } from 'react-native';
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { createStackNavigator } from '@react-navigation/stack';
 import Calculator from './calculator/Calculator';
 import Timer from './timer/Timer';
@@ -18,11 +20,12 @@ export default class Tools extends Component{
                         fontWeight: 'bold',
                       },
                       headerLeft: () => (
-                          <Button
+                        <MaterialIcon.Button
+                            name = "format-list-bulleted"
                             onPress={() => this.props.navigation.toggleDrawer()}
-                            title="Info"
-                            color="#fff"
-                          />
+                            style={{color: "white", backgroundColor: "#f4511e"}}
+                            >
+                        </MaterialIcon.Button>
                         ),
                     title: 'Tools List Screen'}}/>
                 <Stack.Screen name="Calculator" component={Calculator} options={{title: "Calculator Screen"}}/>
@@ -35,16 +38,27 @@ export default class Tools extends Component{
 class ToolsScreen extends Component {
     render() {
         return (
-            <View>
-                <Button
-                    onPress={() => this.props.navigation.navigate('Calculator')}
-                    title="Go to Calculator"
-                />
-                <Button
-                    onPress={() => this.props.navigation.navigate('Timer')}
-                    title="Go to Timer"
-                />
-            </View>
+            <TouchableHighlight>
+                <View>
+                    {/* <Button
+                        onPress={() => this.props.navigation.navigate('Calculator')}
+                        title="Go to Calculator"
+                        
+                    />
+                    <Button
+                        onPress={() => this.props.navigation.navigate('Timer')}
+                        title="Go to Timer"
+                    /> */}
+                    <View>
+                        <SimpleLineIcon.Button
+                            name="calculator"
+                            onPress={()=>this.props.navigation.navigate('Calculator')}
+                        >
+                            Calculator
+                        </SimpleLineIcon.Button>
+                    </View>
+                </View>
+            </TouchableHighlight>
         );
     }
 }

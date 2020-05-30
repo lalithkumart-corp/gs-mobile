@@ -2,7 +2,7 @@ import { LOGGED_IN_SUCCESS, LOGGED_OUT_SUCCESS } from '../constants';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const initialState = {
-    isAuthenticated: false,
+    isAuthenticated: true,
     userName: ""
 };
 export const authReducer = (state = initialState, action) => {

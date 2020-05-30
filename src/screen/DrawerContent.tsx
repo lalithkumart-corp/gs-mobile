@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
@@ -36,7 +37,16 @@ class GsDrawerContent extends Component {
                     <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             icon={({color, size}) => (
-                                <Icon name="pageview" size={size} color={color}></Icon>
+                                <EntypoIcon name="tools" size={size} color={color}></EntypoIcon>
+                            )}
+                            label="Tools"
+                            onPress={() => {this.props.navigation.navigate('Tools')}}
+                        />
+                    </Drawer.Section>
+                    <Drawer.Section style={styles.drawerSection}>
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <EntypoIcon name="tools" size={size} color={color}></EntypoIcon>
                             )}
                             label="Demo"
                             onPress={() => {this.props.navigation.navigate('Demo')}}
@@ -44,7 +54,7 @@ class GsDrawerContent extends Component {
                     </Drawer.Section>
                 </DrawerContentScrollView>
 
-                <Drawer.Section style={styles.bottomDrawerSection}>
+                {/* <Drawer.Section style={styles.bottomDrawerSection}>
                     <DrawerItem 
                         icon={({color, size}) => (
                             <Icon name="exit-to-app" size={size} color={color}></Icon>
@@ -52,7 +62,7 @@ class GsDrawerContent extends Component {
                         label = "Sign Out"
                         onPress = {() => {this.props.doLogout()}}
                     />
-                </Drawer.Section>
+                </Drawer.Section> */}
             </View>
         )
     }

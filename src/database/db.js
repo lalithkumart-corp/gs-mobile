@@ -5,9 +5,15 @@ export default class DB {
     database_displayname = "SQLite Test Database";
     database_size = 200000;
     async init() {
-        SQLite.DEBUG(true);
-        // SQLite.enablePromise(false);
-        return await this.connectToDB();
+        try {
+            SQLite.DEBUG(true);
+            // SQLite.enablePromise(false);
+            await this.connectToDB();
+            global.gsDb = this.db;
+            return true;
+        } catch(e) {
+            return false;
+        }
     }
     async connectToDB() {
         // this.db = SQLite.openDatabase(

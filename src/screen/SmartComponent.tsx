@@ -29,7 +29,7 @@ export default class SmartComponent extends Component<PropsType, {}> {
                 <Drawer.Screen name="Home" component={HomeScreen} />
                 <Drawer.Screen name="Notifications" component={NotificationScreen} />
                 <Drawer.Screen name="Tools" component={Tools} />
-                <Drawer.Screen name="Orders" component={Orders} />
+                {/* <Drawer.Screen name="Orders" component={Orders} />*/}
                 <Drawer.Screen name="Demo" component={Demo} />
                 
             </Drawer.Navigator>

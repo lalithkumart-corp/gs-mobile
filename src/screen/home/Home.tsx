@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Text, Button, View, FlatList, StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Calculator from '../tools/calculator/Calculator';
 const Stack = createStackNavigator();
-import GsDatabase from '../../database/db';
 
 export default class Home extends Component {
     constructor(props) {
@@ -14,21 +15,23 @@ export default class Home extends Component {
         return (
             <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{
                     headerStyle: {
-                        backgroundColor: '#f4511e',
+                        backgroundColor: 'white',
                     },
-                    headerTintColor: '#fff',
+                    headerTintColor: '#000',
                     headerTitleStyle: {
                     fontWeight: 'bold',
-                },
-                headerLeft: () => (
-                    <Button
-                        onPress={() => this.props.navigation.toggleDrawer()}
-                        title="Info"
-                        color="#fff"
-                    />
-                )
+                }
             }}>
-                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home Screen'}}/>
+                <Stack.Screen name="HomeScreen" component={HomeScreen} options={{title: 'Home Screen', headerLeft: () => (
+                    <MaterialIcon.Button
+                        name = "format-list-bulleted"
+                        onPress={() => this.props.navigation.toggleDrawer()}
+                        style={{backgroundColor: "#fff"}}
+                        color="#e9711c"
+                        >
+                    </MaterialIcon.Button>
+                )}}/>
+                <Stack.Screen name="Calculator" component={Calculator} options={{title: "Calculator Screen"}}/>
             </Stack.Navigator>
         )
     }
@@ -40,11 +43,15 @@ class HomeScreen extends Component{
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>HOME SCREEN</Text>
-                <Button
-                    onPress={() => this.props.navigation.navigate('Notifications')}
-                    title="Go to Notifications screen"
-                />
+                <View>
+                    <SimpleLineIcon.Button
+                        name="calculator"
+                        onPress={()=>this.props.navigation.navigate('Calculator')}
+                        backgroundColor="#007398"
+                    >
+                        Calculator
+                    </SimpleLineIcon.Button>
+                </View>
             </View>
         )
     }

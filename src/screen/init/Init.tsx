@@ -9,6 +9,8 @@ import { View, Text } from 'react-native';
 import AuthScreen from '../auth/AuthScreen';
 import SmartComponent from '../SmartComponent';
 import { connect } from 'react-redux';
+import GsDatabase from '../../database/db';
+import { setDBReference } from '../../actions/database';
 class Initialising extends Component {
     childCompProps: any;
     state = {
@@ -25,6 +27,8 @@ class Initialising extends Component {
         this.childCompProps = {
             screenName: 'Home'
         }
+        this.props.setDBReference();
+
     }
     // bindMethods() {
     //     this.refresh = this.refresh.bind(this);
@@ -69,4 +73,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
 });
   
-export default connect(mapStateToProps, {})(Initialising)
+export default connect(mapStateToProps, {setDBReference})(Initialising)
