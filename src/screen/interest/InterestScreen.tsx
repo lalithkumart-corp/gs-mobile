@@ -23,12 +23,20 @@ export default class InterestScreen extends Component {
                 headerStyle: {
                     backgroundColor: 'white',
                 },
-                headerTintColor: '#000',
+                headerTintColor: '#ccac00',
                 headerTitleStyle: {
-                fontWeight: 'bold',
-            }
+                    fontWeight: 'bold',
+                }
         }}>
-            <Stack.Screen name="InterestScreen" component={Interest} options={{title: 'Interest'}}/>
+            <Stack.Screen name="InterestScreen" component={Interest} options={{title: 'Interest Calculator', headerLeft: () => (
+                    <MaterialIcon.Button
+                        name = "home"
+                        style={{backgroundColor: "#fff", paddingLeft: 20}}
+                        color="#ccac00"
+                        size={30}
+                        >
+                    </MaterialIcon.Button>
+                )}}/>
         </Stack.Navigator>
         )
     }
