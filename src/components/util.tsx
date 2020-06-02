@@ -28,5 +28,14 @@ export const calcInterestPercent = (thePrincipal, interestRatesDB, itemCategory)
             }
         });
     }
+    interestPercent = parseFloat(interestPercent.toFixed(2));
     return interestPercent;
+}
+
+export const textInputFormat = (val) => {    
+    if(typeof val == "number")
+        val = val.toString();
+    if(val == 0 || val == null || val == undefined)
+        val = "";
+    return val;
 }

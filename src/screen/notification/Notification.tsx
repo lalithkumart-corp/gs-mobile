@@ -6,7 +6,7 @@ export default class NotificationScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>NOTIFICATION SCREEN</Text>
+                <Text>NOTIFICATION SCREEN (in-progress)</Text>
                 <Button onPress={() => this.props.navigation.goBack()} title="Go back" />
             </View>
         )

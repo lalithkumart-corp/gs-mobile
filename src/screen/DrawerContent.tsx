@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import FeatherIcons from 'react-native-vector-icons/Feather';
 import { Avatar, Title, Drawer } from 'react-native-paper';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { connect } from 'react-redux';
@@ -15,8 +17,7 @@ class GsDrawerContent extends Component {
         return (
             <View style={{flex: 1}}>
                 <DrawerContentScrollView {...this.props}>
-                    <View><Text>Content inside DCSV</Text></View>
-                    <Drawer.Section style={styles.drawerSection}>
+                    {/* <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <Icon name="account-balance" size={size} color={color}></Icon>
@@ -33,8 +34,28 @@ class GsDrawerContent extends Component {
                             label="Notification"
                             onPress={() => {this.props.navigation.navigate('Notifications')}}
                         />
-                    </Drawer.Section>
+                    </Drawer.Section> */}
+
                     <Drawer.Section style={styles.drawerSection}>
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <FeatherIcons name="percent" size={size} color={color}></FeatherIcons>
+                            )}
+                            label="Interest Calculator"
+                            onPress={() => {this.props.navigation.navigate('Interest')}}
+                        />
+                    </Drawer.Section>
+
+                    <Drawer.Section style={styles.drawerSection}>
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <SimpleLineIcons name="settings" size={size} color={color}></SimpleLineIcons>
+                            )}
+                            label="App Settings"
+                            onPress={() => {this.props.navigation.navigate('AppSetting')}}
+                        />
+                    </Drawer.Section>
+                    {/* <Drawer.Section style={styles.drawerSection}>
                         <DrawerItem 
                             icon={({color, size}) => (
                                 <EntypoIcon name="tools" size={size} color={color}></EntypoIcon>
@@ -51,7 +72,11 @@ class GsDrawerContent extends Component {
                             label="Demo"
                             onPress={() => {this.props.navigation.navigate('Demo')}}
                         />
-                    </Drawer.Section>
+                    </Drawer.Section> */}
+
+                        <Text style={{marginTop: 100, color: "grey", alignSelf: "center"}}>Contact US</Text>
+                        <Text style={{paddingTop: 5, color: "grey", alignSelf: "center"}}>+91 81485 88004</Text>
+
                 </DrawerContentScrollView>
 
                 {/* <Drawer.Section style={styles.bottomDrawerSection}>

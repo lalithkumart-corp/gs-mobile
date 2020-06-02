@@ -6,7 +6,7 @@ export default class DB {
     database_size = 200000;
     async init() {
         try {
-            SQLite.DEBUG(true);
+            //SQLite.DEBUG(true);
             // SQLite.enablePromise(false);
             await this.connectToDB();
             global.gsDb = this.db;

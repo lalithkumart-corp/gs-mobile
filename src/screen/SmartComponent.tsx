@@ -10,7 +10,8 @@ import Orders from './orders/Orders';
 import Logout from './auth/logout/Logout';
 import GsDatabase from '../database/db';
 import Demo from "./demo/Demo";
-
+import AppSetting from './appsettings/AppSetting';
+import InterestScreen from "./interest/InterestScreen";
 interface PropsType {
     refresh: Function,
     screenName?: string
@@ -25,10 +26,12 @@ export default class SmartComponent extends Component<PropsType, {}> {
 
     render() {
         return (
-            <Drawer.Navigator initialRouteName={"Home"} drawerContent={props => <GsDrawerContent {...props}/> }>
+            <Drawer.Navigator initialRouteName={"Interest"} drawerContent={props => <GsDrawerContent {...props}/> }>
                 <Drawer.Screen name="Home" component={HomeScreen} />
                 <Drawer.Screen name="Notifications" component={NotificationScreen} />
+                <Drawer.Screen name="AppSetting" component={AppSetting} />
                 <Drawer.Screen name="Tools" component={Tools} />
+                <Drawer.Screen name="Interest" component={InterestScreen} />
                 {/* <Drawer.Screen name="Orders" component={Orders} />*/}
                 <Drawer.Screen name="Demo" component={Demo} />
                 
