@@ -22,7 +22,8 @@ interface CalculatorState {
     calcByInterestAmount: boolean,
     calculatedInterestResult: number,
     interestRatesDb: any,
-    calculated: boolean
+    calculated: boolean,
+    interestMode: string
 }
 class Calculator extends Component{
     state: CalculatorState
@@ -41,7 +42,8 @@ class Calculator extends Component{
             calcByInterestAmount: false,
             calculatedInterestResult: 0,
             interestRatesDb: [],
-            calculated: false
+            calculated: false,
+            interestMode: 'simple'
         }
         this.onChangeDate = this.onChangeDate.bind(this);
         this.onToggleSwitch = this.onToggleSwitch.bind(this);
@@ -139,6 +141,15 @@ class Calculator extends Component{
         });
     }
 
+    onInterestModeChange(value) {
+        this.setState({
+            interestMode: value,
+            calcByInterestAmount: false,
+            interestValPerMonth: "0",
+            calculated: false
+        });
+    }
+
     onChangeMonthDiff(val: string) {
         let vl = val || "";
         this.setState({monDiff: vl});
@@ -169,15 +180,58 @@ class Calculator extends Component{
         let interestValPerMonth: number = parseInt(this.state.interestValPerMonth) || 0;
         if(!this.state.calcByInterestAmount)
             interestValPerMonth = this.getInterestValuePerMonth();
-        let interestAmt = monDiff * interestValPerMonth;
+        let interestAmt = 0;
+        if(this.state.interestMode == 'compound')
+            interestAmt = this._calcCompoundInterest();
+        else
+            interestAmt = monDiff * interestValPerMonth;
         this.setState({calculatedInterestResult: interestAmt, calculated: true});
     }
 
-    getInterestValuePerMonth = () => {
-        let amount = parseFloat(this.state.principal) || 0;
+    _calcCompoundInterest() {
+        let compoundIntValue = 0;
+        let thePrincipal = parseInt(this.state.principal);
+        let monDiff = parseInt(this.state.monDiff);
+        let monDiff2 = monDiff;
+        if(monDiff > 12) {
+            let tempSplits: any = monDiff/12;
+            tempSplits = parseInt(tempSplits);
+            let splits = [];
+            for(let i=0; i < tempSplits; i++) {
+                splits.push(12);
+                monDiff2 = monDiff2-12;
+            }
+            splits.push(monDiff2);
+
+            for(let j=0; j< splits.length; j++) {
+                thePrincipal += splits[j] * this.getInterestValuePerMonth(thePrincipal);
+            }
+            compoundIntValue = thePrincipal-parseInt(this.state.principal);
+
+        } else if (monDiff == 0) {
+            compoundIntValue = 0;
+        } else {
+            compoundIntValue = monDiff * this.getInterestValuePerMonth();
+        }
+        return parseFloat(compoundIntValue.toFixed(3));
+    }
+
+    getInterestValuePerMonth = (thePrincipal?) => {
+        let amount;
+        if(thePrincipal)
+            amount = thePrincipal;
+        else 
+            amount = parseFloat(this.state.principal) || 0;
         let interestPercent = parseFloat(this.state.interestPercent) || 0;
         return (amount*interestPercent)/100;
     }
+
+    // getDisplayTextOfIntPercent = (interestPercent) => {
+    //     if(interestPercent)
+    //         return parseInt(interestPercent || 0).toFixed(3);
+    //     else
+    //         return interestPercent;
+    // }
 
     render() {
         return (
@@ -205,7 +259,7 @@ class Calculator extends Component{
                                 onChange={(event, selDate) => this.onChangeDate('toDate', event, selDate)}
                             />
                         }
-                        <View style={{flex: 1/12, flexDirection: 'row', alignItems: 'center', paddingBottom: 10}}> 
+                        <View style={{flex: 1/12, flexDirection: 'row', alignItems: 'center', paddingBottom: 5}}> 
                             <RadioButton.Group
                                 onValueChange={(value) => this.onCategoryChange(value)}
                                 value={this.state.itemCategory}>
@@ -220,6 +274,20 @@ class Calculator extends Component{
                                     <View style={{flex: 1/5, flexDirection: 'row'}}>
                                         <RadioButton value="brass" color="#e9711c"/>
                                         <Text style={{paddingTop: 10}}>Brass</Text>
+                                    </View>
+                            </RadioButton.Group>
+                        </View>
+                        <View style={{flex: 1/12, flexDirection: 'row', alignItems: 'center', paddingBottom: 10}}>
+                            <RadioButton.Group
+                                onValueChange={(value) => this.onInterestModeChange(value)}
+                                value={this.state.interestMode}>
+                                    <View style={{flex: 1/2, flexDirection: "row", justifyContent: "center"}}>
+                                        <RadioButton value="simple" color="#e9711c"/>
+                                        <Text style={{paddingTop: 10}}>Simple Interest</Text>
+                                    </View>
+                                    <View style={{flex: 1/2, flexDirection: "row", justifyContent: "center", paddingRight: 20}}>
+                                        <RadioButton value="compound" color="#e9711c"/>
+                                        <Text style={{paddingTop: 10}}>Compound Interest</Text>
                                     </View>
                             </RadioButton.Group>
                         </View>
@@ -276,7 +344,7 @@ class Calculator extends Component{
 
                         <View style={{flex: 1/12, flexDirection: 'row', alignItems: "center", paddingTop: 20}}>
                             <View style={{flex: 4/12, flexDirection: 'row', justifyContent: "flex-end"}}>
-                                <View style={{flex: 2/6, paddingLeft: 1}}>
+                                <View style={{flex: 3/6, paddingLeft: 1}}>
                                     <TextInput 
                                         value={this.state.interestPercent}
                                         keyboardType="numeric"
@@ -286,7 +354,7 @@ class Calculator extends Component{
                                         placeholder="0"
                                     />
                                 </View>
-                                <Text style={{flex: 2/6, textAlign: 'right', paddingRight: 15, marginTop: 7}}>%</Text>
+                                <Text style={{flex: 1/6, textAlign: 'right', paddingRight: 15, marginTop: 7}}>%</Text>
                             </View>
                             <View style={{flex: 2/12, alignItems: "flex-end"}}>
                                 <Switch
@@ -294,6 +362,7 @@ class Calculator extends Component{
                                     onValueChange={this.onToggleSwitch}
                                     accessibilityStates={[]}
                                     style={{width: 50, borderWidth: 10}}
+                                    disabled={this.state.interestMode=="compound"?true:false}
                                 />
                             </View>
                             <View style={{flex: 5/12, paddingLeft: 1, flexDirection: "row"}}>
@@ -319,12 +388,11 @@ class Calculator extends Component{
                         <View style={{flex: 1/12, flexDirection: "row", alignSelf: "flex-start", paddingLeft: 10, paddingBottom: 5, marginTop: 40}}>
                             <Text>Result:</Text>
                         </View>
-                        <View style={[styles.resultContainer, {borderColor: (this.state.calculated?"#e9711c": "grey")}]}>
+                        <View style={[styles.resultContainer, {borderColor: (this.state.calculated?"#e9711c": "grey"), marginBottom: 15}]}>
                             <Text style={[styles.resultContainerText, {color: (this.state.calculated?"#e9711c": "grey")}]}>
                                 {this.state.calculatedInterestResult}
                             </Text>
                             <Text style={[styles.resultContainerText, {color: (this.state.calculated?"#e9711c": "grey")}]}>
-                                
                                 {this.state.calculatedInterestResult + parseInt(this.state.principal || 0)}
                             </Text>
                         </View>
