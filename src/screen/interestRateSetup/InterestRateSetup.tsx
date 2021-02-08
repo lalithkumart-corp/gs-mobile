@@ -116,28 +116,28 @@ class InterestRateSetup extends Component {
             if(anObj.type == "gold") {
                 goldList.push(
                     <TouchableOpacity style={[styles.listItems, {backgroundColor: "gold"}]} key={index} onPress={()=> this.onPressInterestRate('gold', index, anObj.id)}>
-                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}</Text>
-                        <Text style={styles.rangeFromAmt}> {anObj.range_from}</Text>
+                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}%</Text>
+                        <Text style={styles.rangeFromAmt}> {this.currencyFormatter(anObj.range_from)}</Text>
                         <Text style={styles.connector}> - </Text>
-                        <Text style={styles.rangeToAmt}> {anObj.range_to}</Text>
+                        <Text style={styles.rangeToAmt}> {this.currencyFormatter(anObj.range_to)}</Text>
                     </TouchableOpacity>
                 )
             } else if (anObj.type == "silver") {
                 silverList.push(
                     <TouchableOpacity style={[styles.listItems, {backgroundColor: "silver"}]} key={index} onPress={()=> this.onPressInterestRate('silver', index, anObj.id)}>
-                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}</Text>
-                        <Text style={styles.rangeFromAmt}> {anObj.range_from}</Text>
+                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}%</Text>
+                        <Text style={styles.rangeFromAmt}> {this.currencyFormatter(anObj.range_from)}</Text>
                         <Text style={styles.connector}> - </Text>
-                        <Text style={styles.rangeToAmt}> {anObj.range_to}</Text>
+                        <Text style={styles.rangeToAmt}> {this.currencyFormatter(anObj.range_to)}</Text>
                     </TouchableOpacity>
                 )
             } else {
                 brassList.push(
                     <TouchableOpacity style={[styles.listItems, {backgroundColor: "#b78e0a"}]}  key={index} onPress={()=> this.onPressInterestRate('brass', index, anObj.id)}>
-                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}</Text>
-                        <Text style={styles.rangeFromAmt}> {anObj.range_from}</Text>
+                        <Text style={styles.interestPercent}> {anObj.rate_of_interest}%</Text>
+                        <Text style={styles.rangeFromAmt}> {this.currencyFormatter(anObj.range_from)}</Text>
                         <Text style={styles.connector}> - </Text>
-                        <Text style={styles.rangeToAmt}> {anObj.range_to}</Text>
+                        <Text style={styles.rangeToAmt}> {this.currencyFormatter(anObj.range_to)}</Text>
                     </TouchableOpacity>
                 )
             }
@@ -158,12 +158,30 @@ class InterestRateSetup extends Component {
         theDOM.push(silverList);
         theDOM.push(
             <View style={[styles.listHeader, {flexDirection: 'row'}]} key={"brass-list-header"}>
-                <Text style={{fontSize: 25, fontWeight: "bold", flex: 2/10}}>Brass</Text>
+                <Text style={{fontSize: 25, fontWeight: "bold", flex: 2/10}}>Misc</Text>
                 <MaterialIcons name="add-circle-outline" color= "#007398" style={{flex: 1/10, paddingTop: 2}} size={25} onPress={()=>this.onAddIconPress('brass')}></MaterialIcons>
             </View>
         )
         theDOM.push(brassList);
         return theDOM;
+    }
+
+    currencyFormatter(val) {
+        try {
+            let valStr = val.toString();
+            // return valStr.split('').reverse().join('').match(/.{1,3}/g).reverse().join(',');
+            let yy = valStr.split('').reverse();
+            let res = [];
+            for(let i=1;i<=yy.length; i++) {
+                res.push(yy[i-1]);
+                if(i%3==0 && i!=yy.length)
+                    res.push(',');
+            }
+            return res.reverse().join('');
+        } catch(e) {
+            console.log(e);
+            return val;
+        }
     }
 
     render() {
@@ -230,20 +248,21 @@ let styles = StyleSheet.create({
         marginLeft: 10
     },
     interestPercent: {
-        flex: 2/4,
+        flex: 2.5/6,
         padding: 10,
         fontSize: 20
     },
     rangeFromAmt: {
-        flex: 0.8/4,
-        padding: 10
+        flex: 1.3/4,
+        padding: 10,
+        textAlign: "right"
     },
     connector: {
-        flex: 0.4/4,
+        flex: 0.2/4,
         padding: 10
     },
     rangeToAmt: {
-        flex: 0.8/4,
+        flex: 2/4,
         padding: 10
     }
 })

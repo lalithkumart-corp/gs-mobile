@@ -12,6 +12,7 @@ import GsDatabase from '../database/db';
 import Demo from "./demo/Demo";
 import AppSetting from './appsettings/AppSetting';
 import InterestScreen from "./interest/InterestScreen";
+import InterestScreen2 from "./interest/InterestScreen2";
 interface PropsType {
     refresh: Function,
     screenName?: string
@@ -26,12 +27,13 @@ export default class SmartComponent extends Component<PropsType, {}> {
 
     render() {
         return (
-            <Drawer.Navigator initialRouteName={"Interest"} drawerContent={props => <GsDrawerContent {...props}/> }>
+            <Drawer.Navigator initialRouteName={"Home"} drawerContent={props => <GsDrawerContent {...props}/> }>
                 <Drawer.Screen name="Home" component={HomeScreen} />
                 <Drawer.Screen name="Notifications" component={NotificationScreen} />
                 <Drawer.Screen name="AppSetting" component={AppSetting} />
                 <Drawer.Screen name="Tools" component={Tools} />
-                <Drawer.Screen name="Interest" component={InterestScreen} />
+                {/* <Drawer.Screen name="Interest" component={InterestScreen} /> */}
+                <Drawer.Screen name="InterestCalculator" component={InterestScreen2} />
                 {/* <Drawer.Screen name="Orders" component={Orders} />*/}
                 <Drawer.Screen name="Demo" component={Demo} />
                 

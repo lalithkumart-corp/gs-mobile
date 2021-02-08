@@ -42,7 +42,7 @@ class GsDrawerContent extends Component {
                                 <FeatherIcons name="percent" size={size} color={color}></FeatherIcons>
                             )}
                             label="Interest Calculator"
-                            onPress={() => {this.props.navigation.navigate('Interest')}}
+                            onPress={() => {this.props.navigation.navigate('InterestCalculator')}}
                         />
                     </Drawer.Section>
 

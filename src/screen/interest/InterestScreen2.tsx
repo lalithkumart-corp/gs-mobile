@@ -19,29 +19,26 @@ export default class InterestScreen extends Component {
     }
     render() {
         return (
-            <Interest />
+            <Stack.Navigator initialRouteName="InterestScreen" screenOptions={{
+                headerStyle: {
+                    backgroundColor: 'white',
+                },
+                headerTintColor: '#ccac00',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                }
+            }}>
+                <Stack.Screen name="InterestScreen" component={Interest} options={{title: 'Interest Calculator', headerLeft: () => (
+                    <SimpleLineIcons.Button
+                        name = "calculator"
+                        style={{backgroundColor: "#fff", paddingLeft: 20}}
+                        color="#ccac00"
+                        size={30}
+                        >
+                    </SimpleLineIcons.Button>
+                )}}/>
+            </Stack.Navigator>
         )
-        // return (
-        //     <Stack.Navigator initialRouteName="InterestScreen" screenOptions={{
-        //         headerStyle: {
-        //             backgroundColor: 'white',
-        //         },
-        //         headerTintColor: '#ccac00',
-        //         headerTitleStyle: {
-        //             fontWeight: 'bold',
-        //         }
-        //     }}>
-        //         <Stack.Screen name="InterestScreen" component={Interest} options={{title: 'Interest Calculator', headerLeft: () => (
-        //             <SimpleLineIcons.Button
-        //                 name = "calculator"
-        //                 style={{backgroundColor: "#fff", paddingLeft: 20}}
-        //                 color="#ccac00"
-        //                 size={30}
-        //                 >
-        //             </SimpleLineIcons.Button>
-        //         )}}/>
-        //     </Stack.Navigator>
-        // )
     }
 }
 

@@ -273,7 +273,7 @@ class Calculator extends Component{
                                     </View>
                                     <View style={{flex: 1/5, flexDirection: 'row'}}>
                                         <RadioButton value="brass" color="#e9711c"/>
-                                        <Text style={{paddingTop: 10}}>Brass</Text>
+                                        <Text style={{paddingTop: 10}}>Misc</Text>
                                     </View>
                             </RadioButton.Group>
                         </View>
@@ -343,8 +343,8 @@ class Calculator extends Component{
                         </View>
 
                         <View style={{flex: 1/12, flexDirection: 'row', alignItems: "center", paddingTop: 20}}>
-                            <View style={{flex: 4/12, flexDirection: 'row', justifyContent: "flex-end"}}>
-                                <View style={{flex: 3/6, paddingLeft: 1}}>
+                            <View style={{flex: 3/12, flexDirection: 'row', justifyContent: "flex-end"}}>
+                                <View style={{flex: 5/6, paddingLeft: 1}}>
                                     <TextInput 
                                         value={this.state.interestPercent}
                                         keyboardType="numeric"
@@ -365,8 +365,8 @@ class Calculator extends Component{
                                     disabled={this.state.interestMode=="compound"?true:false}
                                 />
                             </View>
-                            <View style={{flex: 5/12, paddingLeft: 1, flexDirection: "row"}}>
-                                <Text style={{flex: 1.8/6, textAlign: 'right', marginTop: 7, fontSize: 15, paddingRight: 10, paddingLeft: 20}}>Rs:</Text>
+                            <View style={{flex: 7/12, paddingLeft: 1, flexDirection: "row"}}>
+                                <Text style={{flex: 1/6, textAlign: 'right', marginTop: 7, fontSize: 15, paddingRight: 10, paddingLeft: 7}}>Rs:</Text>
                                 <TextInput 
                                     value={this.state.interestValPerMonth}
                                     keyboardType="numeric"
@@ -375,7 +375,7 @@ class Calculator extends Component{
                                     editable={this.state.calcByInterestAmount}
                                     placeholder="0.00"
                                 />
-                                <Text style={{flex: 3/6, textAlign: 'left', marginTop: 12, fontSize: 11, paddingLeft: 5}}>/mon</Text>
+                                <Text style={{flex: 2/6, textAlign: 'left', marginTop: 12, fontSize: 11, paddingLeft: 5}}>/mon</Text>
                             </View>
                         </View>
 
